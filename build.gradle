@@ -1,0 +1,32 @@
+plugins {
+	id 'com.github.johnrengelman.shadow' version '2.0.4'
+	id 'java'
+	id 'application'
+}
+
+group 'eu.alessiobianchi'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+	jcenter()
+}
+
+mainClassName = 'Pkcs5Decoder'
+
+dependencies {
+	compile 'org.apache.commons:commons-lang3:3.5'
+	compile 'org.bouncycastle:bcprov-jdk15on:1.60'
+}
+
+run {
+	args = [
+	]
+}
+
+task distribute(type: Copy) {
+	dependsOn shadowJar
+	from "build/libs/${rootProject.name}-${version}-all.jar"
+	into projectDir
+}
